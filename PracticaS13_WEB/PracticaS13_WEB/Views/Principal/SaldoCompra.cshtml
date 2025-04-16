@@ -1,0 +1,28 @@
+﻿@model PracticaS13_WEB.Models.PrincipalModel
+
+@{
+    ViewData["Title"] = "Saldo de Compra";
+}
+
+<h2>Saldo de la Compra</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-info">@TempData["Mensaje"]</div>
+}
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>Saldo</th>
+            <td>@Model.Saldo.ToString("C")</td>
+        </tr>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">
+        No se pudo obtener la información del saldo.
+    </div>
+}

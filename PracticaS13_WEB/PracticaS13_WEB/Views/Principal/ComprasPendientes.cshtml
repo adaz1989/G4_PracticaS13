@@ -1,0 +1,36 @@
+﻿@model List<PracticaS13_WEB.Models.PrincipalModel>
+
+@{
+    ViewData["Title"] = "Compras Pendientes";
+}
+
+<h2>Compras Pendientes</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-info">@TempData["Mensaje"]</div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID Compra</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Saldo</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var compra in Model.Where(c => c.Estado?.ToLower() == "pendiente"))
+        {
+            <tr>
+                <td>@compra.IdCompra</td>
+                <td>@compra.Descripcion</td>
+                <td>@compra.Precio.ToString("C")</td>
+                <td>@compra.Saldo.ToString("C")</td>
+                <td>@compra.Estado</td>
+            </tr>
+        }
+    </tbody>
+</table>
