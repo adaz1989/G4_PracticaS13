@@ -4,33 +4,61 @@
     ViewData["Title"] = "Compras Pendientes";
 }
 
-<h2>Compras Pendientes</h2>
+<div class="container mt-5">
+    <div class="card shadow-sm rounded">
+        <div class="card-header text-white fw-bold fs-4" style="background-color: #004588;">
+            <i class="bi bi-hourglass-split me-2"></i> Compras Pendientes
+        </div>
 
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-info">@TempData["Mensaje"]</div>
-}
+        <div class="card-body">
 
-<table class="table table-bordered table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>ID Compra</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Saldo</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var compra in Model.Where(c => c.Estado?.ToLower() == "pendiente"))
-        {
-            <tr>
-                <td>@compra.IdCompra</td>
-                <td>@compra.Descripcion</td>
-                <td>@compra.Precio.ToString("C")</td>
-                <td>@compra.Saldo.ToString("C")</td>
-                <td>@compra.Estado</td>
-            </tr>
-        }
-    </tbody>
-</table>
+            <!-- Mensaje de TempData -->
+            @if (TempData["Mensaje"] != null)
+            {
+                <div class="alert alert-info d-flex align-items-center shadow-sm" role="alert">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <div>@TempData["Mensaje"]</div>
+                </div>
+            }
+
+            <!-- Tabla de compras pendientes -->
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle text-dark bg-white">
+                    <thead style="background-color: #004588;" class="text-white text-center">
+                        <tr>
+                            <th>ID Compra</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Saldo</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any(c => c.Estado?.ToLower() == "pendiente"))
+                        {
+                            foreach (var compra in Model.Where(c => c.Estado?.ToLower() == "pendiente"))
+                            {
+                                <tr class="text-center">
+                                    <td class="fw-semibold">@compra.IdCompra</td>
+                                    <td>@compra.Descripcion</td>
+                                    <td>@compra.Precio.ToString("C")</td>
+                                    <td>@compra.Saldo.ToString("C")</td>
+                                    <td>
+                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">No hay compras pendientes registradas.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,8 +1,192 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Hero Section -->
+<div class="hero-wrapper">
+    <section class="hero-section d-flex align-items-center justify-content-between">
+        <!-- Lado izquierdo con el contenido -->
+        <div class="hero-content-left text-start px-4 px-md-5">
+            <div class="hero-title animate-fade-up">
+                <h1 class="display-4 fw-bold mb-3 text-white">Bienvenido a PracticaS13_WEB</h1>
+            </div>
+
+            <div class="hero-subtitle animate-fade-up delay-1">
+                <p class="lead mb-4 text-white">Gestioná tus compras y abonos con estilo y eficiencia</p>
+            </div>
+
+            <div class="hero-buttons d-flex flex-wrap justify-content-start gap-3 animate-fade-up delay-2">
+                <a class="btn btn-warning btn-md px-4 py-2 rounded-pill shadow" href="/Principal">
+                    <i class="bi bi-cart-fill me-2"></i> Ver Compras
+                </a>
+                <a class="btn btn-outline-light btn-md px-4 py-2 rounded-pill" href="/Abono">
+                    <i class="bi bi-cash-coin me-2"></i> Registrar Abono
+                </a>
+            </div>
+        </div>
+
+        <!-- Lado derecho con imagen decorativa -->
+        <div class="hero-content-right d-none d-md-block"></div>
+
+        <!-- Flecha scroll abajo -->
+        <a href="#info" class="scroll-down animate-fade-in text-white" aria-label="Desplazarse hacia abajo">
+            <i class="bi bi-chevron-double-down fs-2"></i>
+        </a>
+    </section>
 </div>
+
+<!-- Sección Informativa -->
+<div id="info" class="info-wrapper py-5 reveal">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="info-image text-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Gestión" class="img-fluid rounded shadow-sm" />
+                </div>
+            </div>
+            <div class="col-md-6 mt-4 mt-md-0">
+                <div class="info-text">
+                    <h3 class="fw-bold text-primary">¿Qué puedes hacer aquí?</h3>
+                    <ul class="list-unstyled fs-5 mt-3">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i> Consultar compras pendientes y completadas.</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i> Registrar pagos parciales (abonos).</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i> Automatizar actualización de estados.</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i> Navegación rápida y amigable.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos personalizados -->
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .hero-wrapper {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .hero-section {
+        width: 100%;
+        height: 50vh;
+        display: flex;
+        flex-direction: row;
+        background: linear-gradient(to bottom, #003366, #00509d);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-content-left {
+        flex: 1;
+        padding: 4rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 600px;
+        margin-left: 5vw;
+    }
+
+    .hero-content-right {
+        flex: 1;
+        background: url('https://cdn-icons-png.flaticon.com/512/891/891462.png') no-repeat center center;
+        background-size: 70%;
+        background-color: transparent;
+    }
+
+    .scroll-down {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #ffffff;
+        animation: bounce 2s infinite;
+        font-size: 2.5rem;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+        .scroll-down:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+    .animate-fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 1s forwards ease-out;
+    }
+
+        .animate-fade-up.delay-1 {
+            animation-delay: 0.4s;
+        }
+
+        .animate-fade-up.delay-2 {
+            animation-delay: 0.7s;
+        }
+
+    .animate-fade-in {
+        opacity: 0;
+        animation: fadeIn 1s forwards ease-out;
+    }
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s ease-out;
+    }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    @@keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    @@keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(10px);
+        }
+    }
+</style>
+
+<!-- Scroll Reveal Script -->
+@section Scripts {
+    <script>
+        window.addEventListener('scroll', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.classList.add('revealed');
+                }
+            });
+        });
+    </script>
+}

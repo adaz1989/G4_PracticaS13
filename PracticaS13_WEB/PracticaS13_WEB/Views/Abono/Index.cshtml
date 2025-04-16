@@ -2,16 +2,43 @@
     ViewData["Title"] = "Abonos";
 }
 
+<style>
+    .btn-abono {
+        background-color: #004589;
+        border: 2px solid #003366;
+        color: white;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-abono:hover {
+            background-color: white;
+            color: #004589;
+            border-color: #004589;
+        }
+</style>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 text-center">
-            <div class="card shadow-lg rounded-4 border-0">
-                <div class="card-body p-5">
-                    <h2 class="card-title mb-4 text-primary fw-bold">Registrar Abono</h2>
-                    <p class="mb-4 text-secondary">Haz clic en el botón para registrar un nuevo abono en el sistema.</p>
-                    <a asp-controller="Abono" asp-action="Registrar" class="btn btn-outline-primary btn-lg px-4 py-2">
-                        Ir a Registrar Abono
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm rounded-4 border-0 bg-white">
+                <div class="card-body text-center px-5 py-5">
+
+                    <!-- Título -->
+                    <h2 class="mb-3 fw-bold" style="color: #004589;">
+                        <i class="bi bi-cash-coin me-2"></i> Registrar Abono
+                    </h2>
+
+                    <!-- Subtítulo -->
+                    <p class="mb-4 text-secondary fs-5">
+                        Gestioná tus pagos de manera rápida y eficiente. Hacé clic en el botón para registrar un nuevo abono.
+                    </p>
+
+                    <!-- Botón con hover -->
+                    <a asp-controller="Abono" asp-action="Registrar" class="btn btn-lg px-5 py-3 shadow-sm btn-abono">
+                        <i class="bi bi-plus-circle me-2"></i> Ir a Registrar Abono
                     </a>
+
                 </div>
             </div>
         </div>
