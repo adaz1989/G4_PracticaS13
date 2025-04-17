@@ -78,3 +78,23 @@ h2 {
         background-color: #157347;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
+
+.btnSaldo {
+    color: #00509d !important;
+    border-color: #00509d !important;
+}
+
+    .btnSaldo:hover {
+        color: white !important;
+        background-color: #00509d !important;
+    }
+
+.btnPendientes {
+    color: white !important;
+    border-color: white !important;
+}
+
+    .btnPendientes:hover {
+        color: #00509d !important;
+        background-color: white !important;
+    }
