@@ -25,7 +25,7 @@ GO
 ----------------------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE SP_RegistrarAbono
 	@IdCompra BIGINT,
-	@Monto DECIMAL(11,5),
+	@Monto DECIMAL(18,5),
 	@CodigoError TINYINT OUT,
 	@Mensaje VARCHAR(100) OUT
 AS
@@ -78,7 +78,7 @@ BEGIN
 		COMMIT TRANSACTION
 
 		SET @CodigoError = 0
-		SET @Mensaje = 'Abono registrado con éxito'
+		SET @Mensaje = 'Abono registrado con ï¿½xito'
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRANSACTION
