@@ -26,20 +26,33 @@
                             <div>@TempData["Mensaje"]</div>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
                         </div>
-                    }
+                    }                    
 
                     <!-- Formulario -->
                     <form asp-action="Registrar" method="post" class="needs-validation" novalidate>
-                        <div class="mb-3">
-                            <label asp-for="IdCompra" class="form-label fw-semibold text-primary">ID de Compra</label>
-                            <input asp-for="IdCompra" type="number" class="form-control rounded-3" placeholder="Ingrese el ID de la compra" required />
-                            <div class="invalid-feedback">Este campo es obligatorio.</div>
+
+                        <div class="mb-4">
+                            <label asp-for="IdCompra" class="form-label fw-semibold text-primary">Compra</label>
+                            <select asp-for="IdCompra" id="IdCompra" class="form-select rounded-3" required>
+                                <option value="">Seleccione una compra pendiente</option>
+                                @foreach (var item in (List<PracticaS13_WEB.Models.PrincipalModel>)ViewBag.Pendientes)
+                                {
+                                    <option value="@item.IdCompra">@item.Descripcion - ₡@item.Saldo</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">Debe seleccionar una compra pendiente.</div>
+                        </div>
+
+                        <!-- Saldo -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-primary">Saldo anterior</label>
+                            <input type="text" id="saldoAnterior" class="form-control rounded-3" readonly />
                         </div>
 
                         <div class="mb-4">
                             <label asp-for="Monto" class="form-label fw-semibold text-primary">Monto</label>
-                            <input asp-for="Monto" type="number" step="0.01" class="form-control rounded-3" placeholder="Ingrese el monto a abonar" required />
-                            <div class="invalid-feedback">Por favor ingrese un monto válido.</div>
+                            <input asp-for="Monto" type="number" step="0.01" class="form-control rounded-3" placeholder="Ingrese el monto a abonar" id="Monto" required />
+                            <div class="invalid-feedback" id="montoError">Por favor ingrese un monto válido.</div>
                         </div>
 
                         <!-- Botones -->
@@ -62,20 +75,46 @@
 
 <!-- Scripts Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Validación -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    (() => {
-        'use strict';
-        const forms = document.querySelectorAll('.needs-validation');
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', e => {
-                if (!form.checkValidity()) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
+    $(document).ready(function () {
+        $('#IdCompra').on('change', function () {
+            const idCompra = $(this).val();
+
+            if (idCompra) {
+                $.ajax({
+                    url: '/Principal/ObtenerSaldo',
+                    type: 'GET',
+                    data: { idCompra: idCompra },
+                    success: function (data) {
+                        $('#saldoAnterior').val(parseFloat(data).toFixed(2));
+                    },
+                    error: function (xhr) {
+                        $('#saldoAnterior').val('');
+                        alert('Error al consultar el saldo: ' + xhr.responseText);
+                    }
+                });
+            } else {
+                $('#saldoAnterior').val('');
+            }
         });
-    })();
+
+        // Validar monto antes de enviar el formulario
+        $('form').on('submit', function (e) {
+            const monto = parseFloat($('#Monto').val());
+            const saldo = parseFloat($('#saldoAnterior').val());
+
+            if (isNaN(monto) || isNaN(saldo) || monto > saldo) {
+                e.preventDefault(); // Cancela el envío
+                $('#Monto').addClass('is-invalid');
+                $('#montoError').text('El abono no puede ser mayor al saldo actual.');
+            } else {
+                $('#Monto').removeClass('is-invalid');
+            }
+        });
+    });
 </script>
+
+
+

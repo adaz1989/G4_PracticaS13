@@ -36,5 +36,20 @@ namespace PracticaS13_WEB.Controllers
             TempData["Mensaje"] = respuesta.Mensaje;
             return View(respuesta.Resultado ? respuesta.Datos : null);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ObtenerSaldo(long idCompra)
+        {
+            var respuesta = await _principalRepository.ObtenerSaldoCompra(idCompra);
+
+            if (respuesta.Resultado && respuesta.Datos is PrincipalModel principal)
+            {
+                return Ok(principal.Saldo);
+            }
+
+            return BadRequest("No se pudo obtener el saldo.");
+        }
+
+
     }
 }

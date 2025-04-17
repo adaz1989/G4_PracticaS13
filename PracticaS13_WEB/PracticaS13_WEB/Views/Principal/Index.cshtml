@@ -37,10 +37,18 @@
                             <table class="table align-middle text-dark mb-0">
                                 <thead class="text-white" style="background-color: #004588;">
                                     <tr>
+                                        @*
+                                        <th>Código Compra</th>
                                         <th style="width: 40%;">Descripción</th>
                                         <th style="width: 35%;">Monto</th>
                                         <th style="width: 10%;">Estado</th>
                                         <th style="width: 10%;">Acciones</th>
+                                        *@
+                                        <th>Código Compra</th>
+                                        <th >Descripción</th>
+                                        <th>Precio</th>
+                                        <th >Saldo</th>
+                                        <th >Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,19 +57,21 @@
                                         foreach (var compra in Model)
                                         {
                                             <tr>
+                                                <td>@compra.IdCompra</td>
                                                 <td>@compra.Descripcion</td>
                                                 <td>@compra.Precio.ToString("C")</td>
+                                                <td>@compra.Saldo.ToString("C")</td>
                                                 <td>
                                                     <span class="badge @(compra.Estado == "Pendiente" ? "bg-warning text-dark" : "bg-success")">
                                                         @compra.Estado
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    <a href="@Url.Action("SaldoCompra", "Principal", new { idCompra = compra.IdCompra })"
-                                                       class="btn btnSaldo">
-                                                        <i class="bi bi-currency-dollar me-1"></i> Saldo
-                                                    </a>
-                                                </td>
+                                                @* <td> *@
+                                                @*     <a href="@Url.Action("SaldoCompra", "Principal", new { idCompra = compra.IdCompra })" *@
+                                                @*        class="btn btnSaldo"> *@
+                                                @*         <i class="bi bi-currency-dollar me-1"></i> Saldo *@
+                                                @*     </a> *@
+                                                @* </td> *@
                                             </tr>
                                         }
                                     }
